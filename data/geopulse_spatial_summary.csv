@@ -1,0 +1,6 @@
+StoreID,StoreName,Unique_Devices,Total_GPS_Visits
+S001,Store A,1,1
+S002,Store B,0,0
+S003,Store C,1,1
+S004,Store D,1,1
+S005,Store E,1,1
