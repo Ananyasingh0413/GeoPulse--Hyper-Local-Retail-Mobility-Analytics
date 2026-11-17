@@ -24,3 +24,11 @@ GPS_REQUIRED_COLUMNS = [
     "Long",
     "Timestamp"
 ]
+
+# Required Store columns
+STORE_REQUIRED_COLUMNS = [
+    "StoreID",
+    "StoreName",
+    "Lat",
+    "Long"
+]

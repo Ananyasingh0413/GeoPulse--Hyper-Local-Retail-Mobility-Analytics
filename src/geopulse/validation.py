@@ -45,7 +45,8 @@ def validate_gps_data(gps):
     if "Timestamp" in gps.columns:
         timestamps = pd.to_datetime(
             gps["Timestamp"],
-            errors="coerce"
+            errors="coerce",
+            format="mixed"
         )
 
         results["invalid_timestamps"] = int(
