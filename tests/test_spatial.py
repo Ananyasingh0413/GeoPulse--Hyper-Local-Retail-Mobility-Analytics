@@ -167,3 +167,28 @@ def test_geographic_crs_is_rejected():
             stores,
             projected_crs="EPSG:4326"
         )
+
+
+def test_duplicate_device_timestamp_preserves_gps_coordinates():
+    gps = pd.DataFrame({
+        "DeviceID": ["D001", "D001"],
+        "Lat": [28.6500, 28.6510],
+        "Long": [77.1500, 77.1510],
+        "Timestamp": [
+            "2026-11-20 08:00:00",
+            "2026-11-20 08:00:00"
+        ]
+    })
+
+    stores = create_stores(
+        latitudes=[28.6500],
+        longitudes=[77.1500]
+    )
+
+    matches, _, _ = analyze_spatial_catchments(gps, stores)
+
+    assert len(matches) == 2
+    assert set(zip(matches["Lat"], matches["Long"])) == {
+        (28.6500, 77.1500),
+        (28.6510, 77.1510)
+    }

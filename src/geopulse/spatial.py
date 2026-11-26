@@ -162,6 +162,8 @@ def analyze_spatial_catchments(
     if joined.empty:
         matches = pd.DataFrame(columns=[
             "DeviceID",
+            "Lat",
+            "Long",
             "Timestamp",
             "StoreID",
             "StoreName",
@@ -176,6 +178,8 @@ def analyze_spatial_catchments(
 
         matches = pd.DataFrame({
             "DeviceID": joined["DeviceID"].to_numpy(),
+            "Lat": joined["Lat"].to_numpy(),
+            "Long": joined["Long"].to_numpy(),
             "Timestamp": joined["Timestamp"].to_numpy(),
             "StoreID": joined["StoreID"].to_numpy(),
             "StoreName": joined["StoreName"].to_numpy(),
