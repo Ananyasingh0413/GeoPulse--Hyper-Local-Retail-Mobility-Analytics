@@ -1,0 +1,91 @@
+{
+    "dataset_overview": {
+        "total_rows": 10000,
+        "total_columns": 4,
+        "columns": [
+            "DeviceID",
+            "Lat",
+            "Long",
+            "Timestamp"
+        ],
+        "memory_usage_bytes": 550132
+    },
+    "missing_values": {
+        "DeviceID": {
+            "missing_count": 0,
+            "missing_percentage": 0.0
+        },
+        "Lat": {
+            "missing_count": 0,
+            "missing_percentage": 0.0
+        },
+        "Long": {
+            "missing_count": 0,
+            "missing_percentage": 0.0
+        },
+        "Timestamp": {
+            "missing_count": 0,
+            "missing_percentage": 0.0
+        }
+    },
+    "duplicate_analysis": {
+        "duplicate_rows": 0,
+        "duplicate_percentage": 0.0
+    },
+    "column_profiles": {
+        "DeviceID": {
+            "data_type": "str",
+            "non_null_count": 10000,
+            "unique_values": 100,
+            "top_values": {
+                "D001": 100,
+                "D002": 100,
+                "D003": 100,
+                "D004": 100,
+                "D005": 100
+            }
+        },
+        "Lat": {
+            "data_type": "float64",
+            "non_null_count": 10000,
+            "unique_values": 10000,
+            "statistics": {
+                "count": 10000.0,
+                "mean": 28.6480224387157,
+                "std": 0.08664812997232126,
+                "min": 28.5000639352678,
+                "25%": 28.56581958800664,
+                "50%": 28.652911269665175,
+                "75%": 28.725142204172172,
+                "max": 28.80597647494467
+            }
+        },
+        "Long": {
+            "data_type": "float64",
+            "non_null_count": 10000,
+            "unique_values": 10000,
+            "statistics": {
+                "count": 10000.0,
+                "mean": 77.1004112154844,
+                "std": 0.11900040363938907,
+                "min": 76.89862587251206,
+                "25%": 76.98164540716661,
+                "50%": 77.11295759121691,
+                "75%": 77.20710970769001,
+                "max": 77.30439697262943
+            }
+        },
+        "Timestamp": {
+            "data_type": "str",
+            "non_null_count": 10000,
+            "unique_values": 100,
+            "top_values": {
+                "2026-11-20 08:00:00": 100,
+                "2026-11-20 08:05:00": 100,
+                "2026-11-20 08:10:00": 100,
+                "2026-11-20 08:15:00": 100,
+                "2026-11-20 08:20:00": 100
+            }
+        }
+    }
+}

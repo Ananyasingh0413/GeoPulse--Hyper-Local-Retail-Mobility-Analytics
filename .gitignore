@@ -1,3 +1,11 @@
 .venv/
 .ipynb_checkpoints/
 __pycache__/
+
+# Generated GeoPandas analysis outputs
+/reports/geopandas_catchment/
+# Generated interactive spatial map
+/reports/geopulse_spatial_map.html
+
+# Generated temporal analysis reports
+/reports/temporal_analysis/
