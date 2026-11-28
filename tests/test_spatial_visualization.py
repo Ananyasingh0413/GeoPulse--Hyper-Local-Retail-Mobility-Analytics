@@ -155,3 +155,32 @@ def test_rejects_missing_store_columns(
             stores,
             tmp_path / "missing_store.html"
         )
+
+def test_map_supports_custom_projected_crs(
+    gps_data, store_data, tmp_path
+):
+    output_path = tmp_path / "custom_crs_map.html"
+
+    result = generate_spatial_map(
+        gps_data,
+        store_data,
+        output_path,
+        projected_crs="EPSG:32644"
+    )
+
+    assert result.exists()
+    assert result.stat().st_size > 0
+
+
+def test_map_rejects_geographic_crs(
+    gps_data, store_data, tmp_path
+):
+    output_path = tmp_path / "invalid_crs_map.html"
+
+    with pytest.raises(ValueError, match="projected CRS"):
+        generate_spatial_map(
+            gps_data,
+            store_data,
+            output_path,
+            projected_crs="EPSG:4326"
+        )

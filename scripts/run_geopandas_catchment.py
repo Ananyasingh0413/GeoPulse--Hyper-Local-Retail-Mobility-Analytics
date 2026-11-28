@@ -47,6 +47,13 @@ def main():
         help="Store catchment radius in metres."
     )
 
+    parser.add_argument(
+        "--crs",
+        type=str,
+        default="EPSG:32643",
+        help="Projected CRS to use for distance calculations (default: EPSG:32643)."
+    )
+
     args = parser.parse_args()
 
     gps_path = args.gps
@@ -81,7 +88,8 @@ def main():
             analyze_spatial_catchments(
                 gps,
                 stores,
-                radius_meters=args.radius
+                radius_meters=args.radius,
+                projected_crs=args.crs
             )
         )
 
@@ -106,6 +114,7 @@ def main():
         print(f"GPS records       : {len(gps)}")
         print(f"Store locations   : {len(stores)}")
         print(f"Catchment radius  : {args.radius} metres")
+        print(f"Projected CRS     : {args.crs}")
         print(f"Matched records   : {len(matches)}")
         print(f"Unmatched records : {len(unmatched)}")
         print(

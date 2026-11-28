@@ -192,3 +192,83 @@ def test_duplicate_device_timestamp_preserves_gps_coordinates():
         (28.6500, 77.1500),
         (28.6510, 77.1510)
     }
+
+
+def test_non_dataframe_gps_input_is_rejected():
+    stores = create_stores()
+
+    with pytest.raises(TypeError):
+        analyze_spatial_catchments([], stores)
+
+
+def test_missing_gps_column_is_rejected():
+    gps = create_gps([28.6500], [77.1500]).drop(
+        columns=["Timestamp"]
+    )
+    stores = create_stores()
+
+    with pytest.raises(ValueError, match="missing columns"):
+        analyze_spatial_catchments(gps, stores)
+
+
+def test_duplicate_store_ids_are_rejected():
+    gps = create_gps([28.6500], [77.1500])
+    stores = create_stores(
+        latitudes=[28.6500, 28.6510],
+        longitudes=[77.1500, 77.1510]
+    )
+    stores.loc[1, "StoreID"] = stores.loc[0, "StoreID"]
+
+    with pytest.raises(ValueError, match="unique"):
+        analyze_spatial_catchments(gps, stores)
+
+
+def test_missing_store_name_is_rejected():
+    gps = create_gps([28.6500], [77.1500])
+    stores = create_stores()
+    stores.loc[0, "StoreName"] = None
+
+    with pytest.raises(ValueError, match="StoreName"):
+        analyze_spatial_catchments(gps, stores)
+
+
+def test_non_numeric_coordinates_are_rejected():
+    gps = create_gps([28.6500], [77.1500])
+    gps["Lat"] = gps["Lat"].astype(object)
+    gps.loc[0, "Lat"] = "invalid"
+
+    stores = create_stores()
+
+    with pytest.raises(ValueError, match="invalid coordinates"):
+        analyze_spatial_catchments(gps, stores)
+
+def test_infinite_coordinates_are_rejected():
+    gps = create_gps([28.6500], [77.1500])
+    gps.loc[0, "Long"] = float("inf")
+    stores = create_stores()
+
+    with pytest.raises(ValueError, match="invalid coordinates"):
+        analyze_spatial_catchments(gps, stores)
+
+
+@pytest.mark.parametrize("radius", [0, -100, float("inf"), float("nan")])
+def test_invalid_catchment_radius_is_rejected(radius):
+    gps = create_gps([28.6500], [77.1500])
+    stores = create_stores()
+
+    with pytest.raises(ValueError):
+        analyze_spatial_catchments(
+            gps, stores, radius_meters=radius
+        )
+
+
+def test_projected_crs_using_feet_is_rejected():
+    gps = create_gps([28.6500], [77.1500])
+    stores = create_stores()
+
+    with pytest.raises(ValueError, match="metres"):
+        analyze_spatial_catchments(
+            gps,
+            stores,
+            projected_crs="EPSG:2263"
+        )

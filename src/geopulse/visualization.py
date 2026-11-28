@@ -13,7 +13,8 @@ def generate_spatial_map(
     gps,
     stores,
     output_path,
-    radius_meters=CATCHMENT_RADIUS_METERS
+    radius_meters=CATCHMENT_RADIUS_METERS,
+    projected_crs="EPSG:32643"
 ):
     """
     Generate an interactive Folium map of GeoPulse store catchments
@@ -41,7 +42,8 @@ def generate_spatial_map(
     matches, unmatched, summary = analyze_spatial_catchments(
         gps,
         stores,
-        radius_meters=radius_meters
+        radius_meters=radius_meters,
+        projected_crs=projected_crs
     )
 
     center = [
